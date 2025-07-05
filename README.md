@@ -94,40 +94,5 @@ No Excel “row by row” boilerplate in your controllers.
 
 
 ---
-
-## 5️⃣ Testing Locally
-
-### 📦 `composer install`
-
-### 📦 Testing in your Laravel project:
-1. Run:
-    ```bash
-    composer require path/to/laravel-fast-excel-wrapper
-    ```
-    or use:
-    ```json
-    "repositories": [
-        {
-            "type": "path",
-            "url": "../path/to/laravel-fast-excel-wrapper"
-        }
-    ],
-    ```
-    in your Laravel project `composer.json`, then:
-    ```bash
-    composer require yourname/laravel-fast-excel-wrapper
-    ```
-
-2. Use exactly as pada `FastExcelWrapper::import(...)` dan `export(...)`.
-
----
-
-## 6️⃣ Upload ke GitHub
-
-1️⃣ Buat repo baru `laravel-fast-excel-wrapper` di GitHub.  
-2️⃣ `git init`, `git add .`, `git commit -m "Initial commit"`  
-3️⃣ `git remote add origin git@github.com:yourname/laravel-fast-excel-wrapper.git`  
-4️⃣ `git push -u origin main`.
-
----
-
+🛡️ License
+MIT
