@@ -1,6 +1,7 @@
 # 🦉 Laravel FastExcel Wrapper
 
 A lightweight **FastExcel import/export wrapper** for Laravel, supporting **batch validation, optional attribute/messages, and clean import pipeline**.
+The flow is almost like maatwebsite/excel, which provides specific import classes for your data.
 
 ---
 
