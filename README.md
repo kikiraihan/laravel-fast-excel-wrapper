@@ -17,11 +17,13 @@ A lightweight **FastExcel import/export wrapper** for Laravel, supporting **batc
 ---
 
 ## 📦 Installation
-
+1. make sure you already install the [rap2hpoutre/fast-excel](https://github.com/rap2hpoutre/fast-excel)
+2. clone this repo
 ```bash
-composer require yourname/laravel-fast-excel-wrapper
-
+# composer require yourname/laravel-fast-excel-wrapper
+git clone https://github.com/kikiraihan/laravel-fast-excel-wrapper fast-excel-wrapper
 ```
+3. just use the wrapper class, copy to your project
 
 🛠️ Usage
 1️⃣ Create Import Class
