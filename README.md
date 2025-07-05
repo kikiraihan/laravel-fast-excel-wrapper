@@ -199,13 +199,6 @@ class BranchDealerTransactionImport
     {
         return (new self())->rules();
     }
-
-    public static function getImportRulesDescription(): string
-    {
-        return "branch_dealer_id: required, string\n"
-            . "dealer_id: required, string\n"
-            . "...";
-    }
 }
 ```
 
