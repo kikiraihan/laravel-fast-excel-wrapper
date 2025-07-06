@@ -6,6 +6,7 @@ use Rap2hpoutre\FastExcel\FastExcel;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Collection;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Validation\ValidationException;
 
 class FastExcelWrapper
@@ -48,7 +49,27 @@ class FastExcelWrapper
             $validator = Validator::make($validationData->toArray(), self::transformRules($rules, $rows->count()), $messages, $attributes);
 
             if ($validator->fails()) {
-                throw new ValidationException($validator);
+                // throw new ValidationException($validator);
+                $errors = $validator->errors();
+                $detailedErrors = [];
+
+                foreach ($errors->messages() as $key => $messagesArray) {
+                    foreach ($messagesArray as $message) {
+                        [$rowIndex, $column] = explode('.', $key);
+                        $rowNumber = (int) $rowIndex + 1;
+                        $value = $rows[$rowIndex][$column] ?? 'NULL';
+
+                        $errorMessage =
+                            $message . "\n" 
+                            .'for value (' . $value . ') '
+                            .'in column ' . $column
+                            .', in row ' . $rowNumber . "\n";
+
+                        $detailedErrors[] = $errorMessage;
+                    }
+                }
+
+                throw ValidationException::withMessages($detailedErrors);
             }
         }
 
@@ -59,8 +80,19 @@ class FastExcelWrapper
             });
         }
 
-        // Handle insert
-        if (method_exists($instance, 'handle')) {
+        // Handle insert DB
+        if (method_exists($instance, 'safelyDBHandle')) {
+            DB::beginTransaction();
+            try {
+                $instance->safelyDBHandle($rows);
+                DB::commit();
+            } catch (\Throwable $e) {
+                DB::rollBack();
+                throw $e;
+            }
+        }
+        // handle natively
+        elseif (method_exists($instance, 'handle')) {
             $instance->handle($rows);
         }
     }
